@@ -13,7 +13,7 @@ number_of_requests = int(sys.argv[-1])
 
 
 def get_article() -> Tuple[str, str]:
-	req = requests.get("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
+	req = requests.get("https://ru.wikipedia.org/wiki/Служебная:Случайная_страница")
 	article_url = req.url
 	print(f"Trying {article_url}")
 	article_id = article_url.split("/")[-1]
@@ -23,7 +23,7 @@ def write_article(art_id: str, art_url: str, sentences: str):
 	with open(f"output/{art_id}.txt", "w") as f:
 		f.write(art_url+"@@===#####===@@"+sentences)
 
-wikipedia.set_lang("fr")
+wikipedia.set_lang("ru")
 
 while number_of_requests > 0:
 	try:
