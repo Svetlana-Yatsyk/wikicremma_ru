@@ -1,34 +1,20 @@
-import sys
-from typing import Tuple
-import wikipedia
-import requests
-import os
+import wikipedia, requests, os, sys
 from urllib.parse import unquote
 
-
 os.makedirs("output", exist_ok=True)
-
-
-number_of_requests = int(sys.argv[-1])
-
-
-def get_article() -> Tuple[str, str]:
-	req = requests.get("https://ru.wikipedia.org/wiki/Служебная:Случайная_страница")
-	article_url = req.url
-	print(f"Trying {article_url}")
-	article_id = article_url.split("/")[-1]
-	return article_url, article_id
-
-def write_article(art_id: str, art_url: str, sentences: str):
-	with open(f"output/{art_id}.txt", "w") as f:
-		f.write(art_url+"@@===#####===@@"+sentences)
-
 wikipedia.set_lang("ru")
 
-while number_of_requests > 0:
-	try:
-		art_url, art_id = get_article()
-		write_article(art_id, art_url, ".".join(wikipedia.page(unquote(art_id)).summary.split(".")[:4]))
-		number_of_requests -= 1
-	except Exception as e:
-		print(e)
+n = int(sys.argv[-1])
+while n > 0:
+    try:
+        title = wikipedia.random()
+        page = wikipedia.page(title)
+        art_url = page.url
+        art_id = title
+        summary = ".".join(page.summary.split(".")[:8])
+        with open(f"output/{art_id}.txt", "w") as f:
+            f.write(art_url + "@@===#####===@@" + summary)
+        print(f"Saved [{art_id}]")
+        n -= 1
+    except Exception as e:
+        print("Error:", e)
