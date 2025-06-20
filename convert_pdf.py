@@ -10,7 +10,7 @@ lat = re.compile(r"([^\p{Latin}\s\p{posix_punct}\d]+)")
 
 os.makedirs("output", exist_ok=True)
 
-with open("template.html") as f:
+with open("template_is.html") as f:
 	template = f.read()
 
 directory = "output"
