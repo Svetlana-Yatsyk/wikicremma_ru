@@ -2,7 +2,7 @@ import wikipedia, requests, os, sys
 from urllib.parse import unquote
 
 os.makedirs("output", exist_ok=True)
-wikipedia.set_lang("ru")
+wikipedia.set_lang("is")
 
 n = int(sys.argv[-1])
 while n > 0:
