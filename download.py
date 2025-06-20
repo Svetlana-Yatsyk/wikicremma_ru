@@ -12,9 +12,14 @@ while n > 0:
         art_url = page.url
         art_id = title
         summary = ".".join(page.summary.split(".")[:8])
-        with open(f"output/{art_id}.txt", "w") as f:
-            f.write(art_url + "@@===#####===@@" + summary)
-        print(f"Saved [{art_id}]")
-        n -= 1
+        full_text = art_url + "@@===#####===@@" + summary
+
+        if len(full_text) >= 300:
+            with open(f"output/{art_id}.txt", "w") as f:
+                f.write(full_text)
+            print(f"Saved [{art_id}] ({len(full_text)} characters)")
+            n -= 1
+        else:
+            print(f"Skipped [{art_id}] because it is too short ({len(full_text)} characters)")
     except Exception as e:
         print("Error:", e)
